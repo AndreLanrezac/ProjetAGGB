@@ -12,8 +12,7 @@
 
 
 // Affiche la chaine de caractères seq de longueur lg
-void AfficheSeq(char seq[], int lg)
-{
+void AfficheSeq(char seq[], int lg){
 	int i;
 	for (i=0; i<lg; i++)
 	{
@@ -26,8 +25,7 @@ void AfficheSeq(char seq[], int lg)
 
 
 // Remplie la chaine de caractère seq de lg nucléotides tirés aléatoirement
-void InitSeqAlea(char seq[], int lg)
-{
+void InitSeqAlea(char seq[], int lg){
 	int i;
 	char bases[5] = "ATGC\0"; 
 	srand(time(NULL));
@@ -41,8 +39,7 @@ void InitSeqAlea(char seq[], int lg)
 
 
 // Retourne la proportion en GC dans la séquence seq de longeur lg
-float GC(char seq[], int lg)
-{
+float GC(char seq[], int lg){
 	float GC=0;
 	int i;
 	
@@ -57,27 +54,37 @@ float GC(char seq[], int lg)
 }
 
 // retourne 1 si codon start ; retourne 0 si codon stop
-int estStart(char *seq)
-{
+// *seq -> pointeur de la première base du codon
+int estStart(char *seq){
 	char codon[4];
+	
+	memcpy(codon, seq, 3);
 	codon[3] = '\0';
-	
-	/*
-	int i;
-	for (i=0; i<3; i++) { codon[i] = *(seq+i); }
-	*/
-	
-	memm(seq, codon, 3);
-	
-	printf ("Codon : %s\n",codon);
-	
+
 	if (strcmp(codon, "ATG") == 0) // retourne 0 si les chaines sont identiques
 	{
 		return 1;
 	}
 	else { return 0;}
+	
 }
-// int estStop(char *seq)
+
+int estStop(char *seq){
+	
+	char codon[4];
+	
+	memcpy(codon, seq, 3);
+	codon[3] = '\0';
+
+	if ( strcmp(codon, "TAA")== 0 \
+	  || strcmp(codon, "TAG")== 0  \
+	  || strcmp(codon, "TGA")== 0) // retourne 0 si les chaines sont identiques
+	{
+		return 1;
+	}
+	else { return 0;}
+
+}
 
 
 int main ()
@@ -93,7 +100,7 @@ int main ()
 	propor_GC = GC (seq,lg);
 	printf("Proportion GC : %f\n",propor_GC);
 	
-	printf ("%d\n", estStart(&seq[3]));
+	printf ("%d\n", estStop(&seq[0]));
 	
 	return 0;
 }
