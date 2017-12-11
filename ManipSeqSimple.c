@@ -34,7 +34,7 @@ void InitSeqAlea(char seq[], int lg){
 	{
 		seq[i] = bases[rand()%3];
 	}
-	seq[-1] = '\0';
+	seq[lg] = '\0';
 }
 
 
@@ -86,10 +86,33 @@ int estStop(char *seq){
 
 }
 
+char Nt_Complementaire(char nt){
+	switch (nt){
+		case 'A': return 'T'; break;
+		case 'T': return 'A'; break;
+		case 'G': return 'C'; break;
+		case 'C': return 'G'; break;
+		default : return 'X'; break;
+	}
+}
 
-int main ()
-{
-	int lg = 20 +1; //ne pas oublier le \0 à la fin d'une chaine de caractères
+int compteGC3en3(char *seq, int lgSeq){
+	
+	int comptGC=0, i;
+	
+	for (i=0; i<lgSeq; i+=3){
+		
+		if (seq[i]== 'G' || seq[i]== 'G'){
+			comptGC+=1;
+		}
+	}
+	return comptGC;
+	
+}
+
+
+int main (){
+	int lg = 40 +1; //ne pas oublier le \0 à la fin d'une chaine de caractères
 	char seq[lg]; 
 	float propor_GC;
 	
@@ -100,8 +123,7 @@ int main ()
 	propor_GC = GC (seq,lg);
 	printf("Proportion GC : %f\n",propor_GC);
 	
-	printf ("%d\n", estStop(&seq[0]));
-	
+
 	return 0;
 }
 
@@ -109,8 +131,6 @@ int main ()
 
 /*
 
-char Nt_Complementaire(char nt);
 
-int compteGC3en3(char *seq, int lgSeq);
 float calcChi2Conformite(char *seq, int lg, float GCGlobal );
 */

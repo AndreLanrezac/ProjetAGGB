@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "detectionORFs.h"
+#include "DetectionORFs.h"
 #include "ManipSeqADN.h"
 #include "ManipSeqSimple.h"
 #include "ManipORF.h"
