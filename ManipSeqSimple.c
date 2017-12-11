@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 
 
 
@@ -32,7 +33,7 @@ void InitSeqAlea(char seq[], int lg){
 	
 	for (i=0; i<lg; i++)
 	{
-		seq[i] = bases[rand()%3];
+		seq[i] = bases[rand()%4];
 	}
 	seq[lg] = '\0';
 }
@@ -45,7 +46,7 @@ float GC(char seq[], int lg){
 	
 	for (i=0; i<lg; i++)
 	{
-		if (seq[i] == 'G' || seq[i] == 'C' ) // si une base de la seq est un G ou C
+		if ( seq[i] == 'G' || seq[i] == 'C' ) // si une base de la seq est un G ou C
 		{
 			GC += 1;
 		}
@@ -102,7 +103,7 @@ int compteGC3en3(char *seq, int lgSeq){
 	
 	for (i=0; i<lgSeq; i+=3){
 		
-		if (seq[i]== 'G' || seq[i]== 'G'){
+		if (seq[i]== 'G' || seq[i]== 'C'){
 			comptGC+=1;
 		}
 	}
@@ -110,9 +111,31 @@ int compteGC3en3(char *seq, int lgSeq){
 	
 }
 
+float calcChi2Conformite(char *seq, int lg, float GCGlobal ){
+	float chi2=0,GCpos3, GCth, ATth,ATpos3;
+	
+	GCth = GC(seq,lg)*lg; // effectif de GC théorique à une position donné du codon
+	ATth = lg - GCth;
+	GCth /=3; ATth /=3;
+	
+	GCpos3 = compteGC3en3((seq),lg);
+	ATpos3 = lg/3 - GCpos3;
+	
+	//printf("GCth : %f, ATth : %f\n",GCth,ATth);
+	//printf("GCpos3 : %f, ATpos3 : %f\n",GCpos3,ATpos3);
+	
+	
+	chi2 = pow((GCpos3 - GCth),2)/ GCth + \
+		   pow((ATpos3 - ATth),2)/ GCth;
+	return chi2;
+	//  alpha = 0.05 ddl = 1; chi2 = 3.84
+	
+	
+}
+
 
 int main (){
-	int lg = 40 +1; //ne pas oublier le \0 à la fin d'une chaine de caractères
+	int lg = 100 +1; //ne pas oublier le \0 à la fin d'une chaine de caractères
 	char seq[lg]; 
 	float propor_GC;
 	
@@ -121,16 +144,10 @@ int main (){
 	AfficheSeq(seq,lg);
 	
 	propor_GC = GC (seq,lg);
-	printf("Proportion GC : %f\n",propor_GC);
 	
-
+	float Chi2;
+	Chi2 = calcChi2Conformite(seq, lg, propor_GC);
+	// printf("Chi2 : %f \n", Chi2);
 	return 0;
 }
 
-
-
-/*
-
-
-float calcChi2Conformite(char *seq, int lg, float GCGlobal );
-*/
