@@ -13,12 +13,15 @@
 /************************************/
 int main(int argc, char *argv[]){
     
-    tySeqADN *pS, *pComp;//, *pS2; 
+    tySeqADN *pS, *pComp;//, *pS2; Création d'un pointeur pS vers un objet de type tySeqADN
     tyListeORFs *lesORFs=NULL, *lesORFsComp=NULL, *pTmp;
     /*int lgMinORF=100;*/
     char *nomFi;
     
     
+    // pS = newSeqADN(); //pS pointeur vers une nouvelle structure
+    
+
     
     //	srand(time(NULL));
     
