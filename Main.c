@@ -13,7 +13,7 @@
 /************************************/
 int main(int argc, char *argv[]){
     
-    tySeqADN *pS, *pComp;//, *pS2;
+    tySeqADN *pS, *pComp;//, *pS2; 
     tyListeORFs *lesORFs=NULL, *lesORFsComp=NULL, *pTmp;
     /*int lgMinORF=100;*/
     char *nomFi;
