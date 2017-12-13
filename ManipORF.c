@@ -29,4 +29,9 @@ tyORF* newORF(){
 
 }
 
+tyORF* freeORF(tyORF *pO){
+	
+	free(pO);
+	return pO;
+}
 
