@@ -14,14 +14,27 @@
 int main(int argc, char *argv[]){
     
     tySeqADN *pS, *pComp;//, *pS2; Création d'un pointeur pS vers un objet de type tySeqADN
-    tyListeORFs *lesORFs=NULL, *lesORFsComp=NULL, *pTmp;
+    //tyListeORFs *lesORFs=NULL, *lesORFsComp=NULL, *pTmp;
     /*int lgMinORF=100;*/
     char *nomFi;
     
-    
-    // pS = newSeqADN(); //pS pointeur vers une nouvelle structure
-    
 
+/* TEST
+    pS = newSeqADN(); //pS pointeur vers une nouvelle structure
+    
+    printf ("test seq : %s\n",pS->seq);
+	printf ("test lg : %d\n",pS->lg);
+    printf ("test GC : %f\n",pS->GC);
+FIN TEST */
+
+	int lg1 = 20 +1; //ne pas oublier le \0 à la fin d'une chaine de caractères
+	char seq1[lg1]; 
+	InitSeqAlea (seq1, lg1);
+	pS = newSeqADN(); //pS pointeur vers une nouvelle structure
+	pS->seq = seq1;
+	pS->lg = lg1;
+	//if (seq1[lg] == "\0"){ printf("OK\n"); };
+    complementaire(pS);
     
     //	srand(time(NULL));
     

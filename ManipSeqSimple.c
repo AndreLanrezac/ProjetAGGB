@@ -133,7 +133,7 @@ float calcChi2Conformite(char *seq, int lg, float GCGlobal ){
 	
 }
 
-
+/*
 int main (){
 	int lg = 100 +1; //ne pas oublier le \0 à la fin d'une chaine de caractères
 	char seq[lg]; 
@@ -150,4 +150,4 @@ int main (){
 	// printf("Chi2 : %f \n", Chi2);
 	return 0;
 }
-
+*/
