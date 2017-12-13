@@ -9,6 +9,10 @@
 #include "Main.h"
 #include "codons.h"
 
+// gcc -Wall -o exe main.c ManipSeqADN.c; ./exe test.fasta 
+// gcc -Wall -Wextra -Werror --std=c99  -o exe main.c ManipSeqADN.c; ./exe test.fasta
+    
+
 
 /************************************/
 int main(int argc, char *argv[]){
@@ -48,10 +52,13 @@ int main(int argc, char *argv[]){
     nomFi=argv[1];
     
 	pS=readFasta(nomFi);
+	
     if (pS==NULL){
         fprintf(stderr, "Pas de sequence lue.\nArret...\n");
         exit(1);
     }
+    
+    
     /*
     lesORFs=findORF(pS);
     ecrireListeORF(lesORFs, stdout);

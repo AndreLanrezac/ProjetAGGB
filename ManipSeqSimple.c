@@ -114,7 +114,7 @@ int compteGC3en3(char *seq, int lgSeq){
 float calcChi2Conformite(char *seq, int lg, float GCGlobal ){
 	float chi2=0,GCpos3, GCth, ATth,ATpos3;
 	
-	GCth = GC(seq,lg)*lg; // effectif de GC théorique à une position donné du codon
+	GCth = GCGlobal*lg; // effectif de GC théorique à une position donné du codon
 	ATth = lg - GCth;
 	GCth /=3; ATth /=3;
 	
