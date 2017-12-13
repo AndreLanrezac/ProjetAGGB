@@ -15,7 +15,7 @@ tySeqADN* newSeqADN(){
 	// Vérification de la valeur retournée par malloc
 	
 	if (nouv == NULL){
-		exit(0);
+		exit(1);
 	}
 
 	// intialisation des composantes
@@ -68,7 +68,7 @@ tySeqADN *readFasta(char *nomFi){
 	seqL->seq = malloc(sizeof(char)*SIZE_SEQ); //allocation provisoire pour la seq
 	
 	if (seqL->seq == NULL){
-		exit(0);
+		exit(1);
 	}
 	lgMax = SIZE_SEQ;
 	// Lecture de la première ligne
@@ -93,7 +93,7 @@ tySeqADN *readFasta(char *nomFi){
 			if (tmp == NULL){
 				free(tmp);
 				free(seqL);
-				exit(0);
+				exit(1);
 			}
 			seqL->seq = tmp;
 		}
