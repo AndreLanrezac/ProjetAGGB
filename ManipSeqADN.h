@@ -2,6 +2,7 @@
 
 #ifndef __MANIP_SEQ_ADN__
 #define __MANIP_SEQ_ADN__
+#define SIZE_SEQ 2000
 
 
 // Structure pour manipuler des séquences ADN.

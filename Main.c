@@ -13,7 +13,7 @@
 /************************************/
 int main(int argc, char *argv[]){
     
-    tySeqADN *pS, *pComp;//, *pS2; Création d'un pointeur pS vers un objet de type tySeqADN
+    tySeqADN *pS; //*pComp;//, *pS2; Création d'un pointeur pS vers un objet de type tySeqADN
     //tyListeORFs *lesORFs=NULL, *lesORFsComp=NULL, *pTmp;
     /*int lgMinORF=100;*/
     char *nomFi;
@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
     printf ("test seq : %s\n",pS->seq);
 	printf ("test lg : %d\n",pS->lg);
     printf ("test GC : %f\n",pS->GC);
-FIN TEST */
+
 
 	int lg1 = 20 +1; //ne pas oublier le \0 à la fin d'une chaine de caractères
 	char seq1[lg1]; 
@@ -36,6 +36,9 @@ FIN TEST */
 	//if (seq1[lg] == "\0"){ printf("OK\n"); };
     complementaire(pS);
     
+    FIN TEST */
+    
+    
     //	srand(time(NULL));
     
     if(argc==1){
@@ -44,12 +47,12 @@ FIN TEST */
     }
     nomFi=argv[1];
     
-   /* pS=readFasta(nomFi);
+	pS=readFasta(nomFi);
     if (pS==NULL){
         fprintf(stderr, "Pas de sequence lue.\nArret...\n");
         exit(1);
     }
-    
+    /*
     lesORFs=findORF(pS);
     ecrireListeORF(lesORFs, stdout);
 
