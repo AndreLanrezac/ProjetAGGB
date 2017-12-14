@@ -93,7 +93,7 @@ char Nt_Complementaire(char nt){
 		case 'T': return 'A'; break;
 		case 'G': return 'C'; break;
 		case 'C': return 'G'; break;
-		default : return 'X'; break;
+		default : return '\0'; break;
 	}
 }
 

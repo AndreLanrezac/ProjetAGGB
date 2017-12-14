@@ -33,19 +33,39 @@ tySeqADN* freeSeqADN(tySeqADN *pS){
 	return pS;
 }
 
+
+char *strrev(char *str){
+    char c, *front, *back;
+
+    if(!str || !*str)
+        return str;
+    for(front=str,back=str+strlen(str)-1;front < back;front++,back--){
+        c=*front;*front=*back;*back=c;
+    }
+    return str;
+}
+
 tySeqADN* complementaire(tySeqADN *pS){
-	tySeqADN *compl; //initialisation nouv pointeur vers var type tySeqADN
-	compl = newSeqADN();  //allocation espace et initialisation des champs
+	tySeqADN *complDirect, *complIndirect; //initialisation nouv pointeur vers var type tySeqADN
 	
-	compl->lg = pS->lg;
-	compl->seq = malloc(sizeof(char)*pS->lg);
+	complDirect = newSeqADN();  //allocation espace et initialisation des champs
+
+	complIndirect = newSeqADN();  //allocation espace et initialisation des champs
+	complIndirect->lg = pS->lg;
+	
+	complDirect->seq = malloc(sizeof(char)*pS->lg);
+	complIndirect->seq = malloc(sizeof(char)*pS->lg);
+	
 	int i;
 	char nt;
 	for (i=0; i<pS->lg; i++){
 		nt = pS->seq[i];
-		compl->seq[i] = Nt_Complementaire(nt);
+		complDirect->seq[i] = Nt_Complementaire(nt);
+		
 	}
-	return compl;
+	complIndirect->seq = strrev(complDirect->seq);
+	freeSeqADN(complDirect);
+	return complIndirect;
 }
 
 tySeqADN *readFasta(char *nomFi){
@@ -80,9 +100,7 @@ tySeqADN *readFasta(char *nomFi){
 	
 	while (fgets(ligne,lgMax,pF)!= NULL){
 		lg = strlen(ligne);
-		if(ligne[lg-1] == '\n'){ //supprimer les retours chariots de fin de ligne
-			ligne[lg-1] = 0;
-		}
+		strtok(ligne,"\n"); // suppression \n
 		lgSeq += lg;
 		
 		if (lgSeq+ seqL->lg >= lgMax) { // si la longueur de la ligne + taille seq allouée  > longueur max def

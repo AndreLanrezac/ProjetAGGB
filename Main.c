@@ -17,7 +17,7 @@
 /************************************/
 int main(int argc, char *argv[]){
     
-    tySeqADN *pS; //*pComp;//, *pS2; Création d'un pointeur pS vers un objet de type tySeqADN
+    tySeqADN *pS, *pComp;//, *pS2; Création d'un pointeur pS vers un objet de type tySeqADN
     //tyListeORFs *lesORFs=NULL, *lesORFsComp=NULL, *pTmp;
     /*int lgMinORF=100;*/
     char *nomFi;
@@ -37,10 +37,8 @@ int main(int argc, char *argv[]){
 	pS = newSeqADN(); //pS pointeur vers une nouvelle structure
 	pS->seq = seq1;
 	pS->lg = lg1;
-	//if (seq1[lg] == "\0"){ printf("OK\n"); };
-    complementaire(pS);
-    
-    FIN TEST */
+
+*/
     
     
     //	srand(time(NULL));
@@ -52,14 +50,14 @@ int main(int argc, char *argv[]){
     nomFi=argv[1];
     
 	pS=readFasta(nomFi);
+	pComp=complementaire(pS);
 	
     if (pS==NULL){
         fprintf(stderr, "Pas de sequence lue.\nArret...\n");
         exit(1);
     }
-    
+
     tyORF *testORF;
-    
     testORF = newORF();
     testORF->debut = 251;
     testORF->stop = 450;
@@ -68,14 +66,15 @@ int main(int argc, char *argv[]){
     testORF->GC = GC(pS->seq,pS->lg);
     
     FILE* pF = NULL;
-    printORF(pF, testORF, 0);
+    printORF(pF, testORF, 1);
+ 
     
     /*
     lesORFs=findORF(pS);
     ecrireListeORF(lesORFs, stdout);
 
     printf("Les Complémentaires\n");
-   pComp=complementaire(pS);
+    pComp=complementaire(pS);
     lesORFsComp=findORF(pComp);
     ecrireListeORF(lesORFsComp, stdout);
 

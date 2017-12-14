@@ -50,8 +50,8 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 	 * on suppose que int complementaire = 0 si brin direct et 1 si indirect
 	 */
 	switch (compl_seq){
-		case(0) : fprintf(pF,"> %d-%d\n",pORF->debut,pORF->stop); break;	
-		case(1) : fprintf(pF,"> c%d-%d\n",pORF->debut,pORF->stop); break;
+		case(0) : fprintf(pF,"> %d-%d",pORF->debut,pORF->stop); break;	
+		case(1) : fprintf(pF,"> c%d-%d",pORF->debut,pORF->stop); break;
 	}
 
 	/* Ecriture de l'ORF, il faut que chaque ligne fasse 70 caractères max */
@@ -69,8 +69,12 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 		else{ fprintf(pF,"\n"); };
 		
 	}
-	
-
-	
 	fclose(pF);
 }
+/*
+tyListeORFs* ajouterORF(tyListeORFs *pL, int iDebut, int stop, int start, tySeqADN *pS){
+
+	
+	
+}
+*/

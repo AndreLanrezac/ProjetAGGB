@@ -22,6 +22,8 @@ tySeqADN* complementaire(tySeqADN *pS);
 tySeqADN* freeSeqADN(tySeqADN *pS);
 tySeqADN* newSeqADN(); 
 
+char *strrev(char *str);
+
 
 
 #endif
