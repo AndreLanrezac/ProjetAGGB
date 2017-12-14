@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ManipSeqSimple.c"
 #include "ManipSeqADN.h"
+#include "ManipSeqSimple.c"
 
 
 tySeqADN* newSeqADN(){
@@ -43,7 +43,6 @@ tySeqADN* complementaire(tySeqADN *pS){
 	char nt;
 	for (i=0; i<pS->lg; i++){
 		nt = pS->seq[i];
-		printf("print : %c\n",nt);
 		compl->seq[i] = Nt_Complementaire(nt);
 	}
 	return compl;
@@ -82,7 +81,7 @@ tySeqADN *readFasta(char *nomFi){
 	while (fgets(ligne,lgMax,pF)!= NULL){
 		lg = strlen(ligne);
 		if(ligne[lg-1] == '\n'){ //supprimer les retours chariots de fin de ligne
-			lg --;
+			ligne[lg-1] = 0;
 		}
 		lgSeq += lg;
 		
@@ -106,7 +105,7 @@ tySeqADN *readFasta(char *nomFi){
 	strcat(seqL->seq, "\0");
 	seqL->lg = lgSeq; // affectation de la longueur de la seq
 	seqL->GC = GC(seqL->seq,lgSeq);
-	
+	fclose(pF);
 	return seqL;
 	
 	

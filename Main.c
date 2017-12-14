@@ -58,6 +58,17 @@ int main(int argc, char *argv[]){
         exit(1);
     }
     
+    tyORF *testORF;
+    
+    testORF = newORF();
+    testORF->debut = 251;
+    testORF->stop = 450;
+    testORF->start = 29;
+    testORF->pSeq = pS;
+    testORF->GC = GC(pS->seq,pS->lg);
+    
+    FILE* pF = NULL;
+    printORF(pF, testORF, 0);
     
     /*
     lesORFs=findORF(pS);

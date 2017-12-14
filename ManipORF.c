@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ManipORF.h"
-
+#include "ManipSeqADN.c"
 
 
 tyORF* newORF(){
@@ -35,3 +35,42 @@ tyORF* freeORF(tyORF *pO){
 	return pO;
 }
 
+void printORF(FILE *pF, tyORF *pORF, int compl_seq){
+	/* écrire dans pF la seq de l'ORF pORF au format fasta
+	 * 
+	 * On commence par ouvrir le fichier pF en mode écriture
+	 */
+	pF = fopen("ORF.fasta","w");
+
+	if (pF == NULL){
+		free(pF);
+		exit(1);
+	}
+	/* écriture de la première ligne
+	 * on suppose que int complementaire = 0 si brin direct et 1 si indirect
+	 */
+	switch (compl_seq){
+		case(0) : fprintf(pF,"> %d-%d\n",pORF->debut,pORF->stop); break;	
+		case(1) : fprintf(pF,"> c%d-%d\n",pORF->debut,pORF->stop); break;
+	}
+
+	/* Ecriture de l'ORF, il faut que chaque ligne fasse 70 caractères max */
+	char *seqORF = pORF->pSeq->seq; // seq de l'ORF en brin direct
+	char *seqORFcompl = complementaire(pORF->pSeq)->seq; // seq de l'ORF en brin indirect
+	int debutORF = pORF->debut-1, finORF = pORF->stop-1;
+	int i;
+	for (i=debutORF; i<finORF; i++){
+		if ((i-debutORF)%70 != 0){
+			switch (compl_seq){
+				case(0) : fprintf(pF,"%c",seqORF[i]); break;
+				case(1) : fprintf(pF,"%c",seqORFcompl[i]); break;
+			}
+		}
+		else{ fprintf(pF,"\n"); };
+		
+	}
+	
+
+	
+	fclose(pF);
+}
