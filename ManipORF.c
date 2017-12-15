@@ -71,10 +71,63 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 	}
 	fclose(pF);
 }
-/*
-tyListeORFs* ajouterORF(tyListeORFs *pL, int iDebut, int stop, int start, tySeqADN *pS){
 
+tyListeORFs* ajouterORF(tyListeORFs *pL, int iDebut, int stop, int start, tySeqADN *pS){
+	/* Premier argument : liste a remplir 
+	 * les autres arguments sont les composantes du type ORF a ajouter */
+	
+	tyORF *nouvORF; // initialisation de la nouvelle ORF
+	tyListeORFs *pLnouv; /* initialisation du nouv element listeORF qui contiendra
+	un pointeur vers le nouveau ORF crée a partir des arguments et un pointeur vers NULL */
+	/* initialisation de pLnouv */
+	pLnouv = malloc(sizeof(tyListeORFs));
+	
+	if (pLnouv == NULL){
+		exit(1);
+	}
 	
 	
+	nouvORF = newORF();
+	nouvORF->debut = iDebut;
+	nouvORF->stop = stop;
+	nouvORF->start = start;
+	nouvORF->pSeq = pS;
+	
+	pLnouv->pORF = nouvORF; // affectation composante pORF vers nouvORF
+	pLnouv->pSuiv = NULL; //affectation ORF suivante à NULL (dernier de la liste)
+	
+	pL->pSuiv = pLnouv; // pointeur de l'ORF précédent qui doit pointer vers celui qu'on ajoute
+	
+	return pLnouv;
 }
-*/
+
+tyListeORFs* freeListeORFs(tyListeORFs *pL){
+	tyListeORFs *tmp;
+	for (tmp = pL; tmp->pSuiv != NULL; tmp=tmp->pSuiv){
+		freeORF(tmp->pORF);
+  		}
+	return pL;
+}
+
+tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer){
+	tyListeORFs *tmp;
+	
+	for (tmp = pL; tmp->pSuiv != NULL ; tmp=tmp->pSuiv){
+		if ( tmp->pSuiv == pOrfASupprimer->pSuiv ) {
+			free(tmp->pSuiv);
+		}
+
+	}
+	return pL;
+}
+
+void ecrireListeORF(tyListeORFs *pL, FILE *pF){
+	tyListeORFs *tmp;
+	for (tmp = pL; tmp->pSuiv != NULL ; tmp=tmp->pSuiv){
+		
+		printORF(pF, tmp->pORF, 0);
+	
+	}
+}
+
+
