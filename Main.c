@@ -9,6 +9,7 @@
 #include "Main.h"
 #include "codons.h"
 
+// gcc -Wall -o exe main.c DetectionORFs.c; ./exe test.fasta 
 // gcc -Wall -o exe main.c ManipSeqADN.c; ./exe test.fasta 
 // gcc -Wall -Wextra -Werror --std=c99  -o exe main.c ManipSeqADN.c; ./exe test.fasta
     
@@ -18,11 +19,10 @@
 int main(int argc, char *argv[]){
     
     tySeqADN *pS, *pComp;//, *pS2; Création d'un pointeur pS vers un objet de type tySeqADN
-    //tyListeORFs *lesORFs=NULL, *lesORFsComp=NULL, *pTmp;
+    tyListeORFs *lesORFs=NULL, *lesORFsComp=NULL;// *pTmp;
     /*int lgMinORF=100;*/
     char *nomFi;
     
-
 /* TEST
     pS = newSeqADN(); //pS pointeur vers une nouvelle structure
     
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]){
         fprintf(stderr, "Pas de sequence lue.\nArret...\n");
         exit(1);
     }
-
+	/*
     tyORF *testORF;
     testORF = newORF();
     testORF->debut = 251;
@@ -67,22 +67,23 @@ int main(int argc, char *argv[]){
     
     FILE* pF = NULL;
     printORF(pF, testORF, 1);
+ */
  
     
-    /*
-    lesORFs=findORF(pS);
-    ecrireListeORF(lesORFs, stdout);
+    lesORFs=findORF(pS); // Recherche des ORFs et affectation dans listesORF
+    ecrireListeORF(lesORFs, stdout); //Ecriture des ORFs dans un fichier fasta
 
     printf("Les Complémentaires\n");
-    pComp=complementaire(pS);
-    lesORFsComp=findORF(pComp);
-    ecrireListeORF(lesORFsComp, stdout);
+    pComp=complementaire(pS); // Seq compl de pS dans pComp
+    lesORFsComp=findORF(pComp); // Recherche des ORFs et affectation dans lesORFsComp
+    ecrireListeORF(lesORFsComp, stdout); //Ecriture des ORFs dans un fichier fasta
 
-    lesORFsComp=freeListeORFs(lesORFsComp);
+    lesORFsComp=freeListeORFs(lesORFsComp); 
     lesORFs=freeListeORFs(lesORFs);
     pComp=freeSeqADN(pComp);
     pS=freeSeqADN(pS);
-    */
+    
+    
     return 0;
 }
 

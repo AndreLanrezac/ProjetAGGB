@@ -78,25 +78,26 @@ tyListeORFs* ajouterORF(tyListeORFs *pL, int iDebut, int stop, int start, tySeqA
 	
 	tyORF *nouvORF; // initialisation de la nouvelle ORF
 	tyListeORFs *pLnouv; /* initialisation du nouv element listeORF qui contiendra
-	un pointeur vers le nouveau ORF crée a partir des arguments et un pointeur vers NULL */
+	un pointeur vers le nouveau ORF crée a partir des arguments et un pointeur vers 
+	le premier élément de la liste pL (ajout en début de liste)*/
+
 	/* initialisation de pLnouv */
 	pLnouv = malloc(sizeof(tyListeORFs));
 	
 	if (pLnouv == NULL){
 		exit(1);
 	}
-	
-	
+	/* ------------ */
+	/* Affecation des composantes du nouv ORF */
 	nouvORF = newORF();
 	nouvORF->debut = iDebut;
 	nouvORF->stop = stop;
 	nouvORF->start = start;
 	nouvORF->pSeq = pS;
 	
-	pLnouv->pORF = nouvORF; // affectation composante pORF vers nouvORF
-	pLnouv->pSuiv = NULL; //affectation ORF suivante à NULL (dernier de la liste)
 	
-	pL->pSuiv = pLnouv; // pointeur de l'ORF précédent qui doit pointer vers celui qu'on ajoute
+	pLnouv->pORF = nouvORF; // affectation composante pORF vers nouvORF
+	pLnouv->pSuiv = pL; //affectation ORF suivante au premier element liste pL
 	
 	return pLnouv;
 }
