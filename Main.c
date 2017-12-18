@@ -94,9 +94,13 @@ int main(int argc, char *argv[]){
 		exit(1);
 	}
 	
-    ecrireListeORF(lesORFs, stdout); //Ecriture des ORFs
-    fclose(pF);
+    ecrireListeORF(lesORFs, pF); //Ecriture des ORFs
     
+    fclose(pF);
+
+
+    TrouveLesPremiersStarts(lesORFs);
+    //AfficheSeqBornes(pS->seq,780,986);
     /*
     printf("Les Complémentaires\n");
     pComp=complementaire(pS); // Seq compl de pS dans pComp
@@ -107,6 +111,7 @@ int main(int argc, char *argv[]){
     lesORFs=freeListeORFs(lesORFs);
     //pComp=freeSeqADN(pComp);
     pS=freeSeqADN(pS);
+    
     
     
     return 0;

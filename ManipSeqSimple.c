@@ -23,7 +23,7 @@ void AfficheSeq(char seq[], int lg){
 // Affiche la chaine de caractères seq de longueur lg
 void AfficheSeqBornes(char seq[], int debut, int fin){
 	int i;
-	for (i=debut; i<fin; i++)
+	for (i=debut; i<fin-1; i++)
 	{
 		printf("%c", seq[i]);
 		

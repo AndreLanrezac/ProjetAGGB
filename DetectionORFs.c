@@ -112,30 +112,32 @@ tyListeORFs *findORF(tySeqADN *pS){
 	
 }
 
-/*
 
 void TrouveLesPremiersStarts(tyListeORFs *lesORF){
 	
-	 Parcours des ORFS
-	 Parcours des seq
-	 Remplissage composante debut de tyORF
-
-	
-
 	tyListeORFs *ORF;
-	ORF = lesORFS->pSuiv
-	int i;
 	
-	while (ORF->pSuiv != NULL){
-		
-		for(i=0; i<ORF->lg-3; i+=3){
-			
-			
-			
-		}
-	}
-	
-	
-}
+	ORF = lesORF;
+	int i,taille, debut, stop;
+	char *pCodon;
+	char *seq;
+	seq = ORF->pORF->pSeq->seq;
 
-*/
+	while (ORF->pSuiv != NULL){
+		debut = ORF->pORF->debut;
+		stop = ORF->pORF->stop;
+		taille = stop-debut;
+
+		for(i=debut; i< stop; i+=3){
+			pCodon = &seq[i-1];
+			if (estStart(pCodon) ==1){
+				ORF->pORF->start = i;
+				break;
+			}
+		}
+
+		
+		ORF = ORF->pSuiv;
+	
+	}
+}

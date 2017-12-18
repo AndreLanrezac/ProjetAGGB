@@ -54,17 +54,14 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 
 	/* Ecriture de l'ORF, il faut que chaque ligne fasse 80 caractères max */
 	char *seqORF = pORF->pSeq->seq; // seq de l'ORF en brin direct
-	char *seqORFcompl = complementaire(pORF->pSeq)->seq; // seq de l'ORF en brin indirect
 	int debutORF = pORF->debut-1, finORF = pORF->stop-1;
 	int i;
 	for (i=debutORF; i<finORF; i++){
 		if ((i-debutORF)%80 != 0){
-			switch (compl_seq){
-				case(0) : fprintf(pF,"%c",seqORF[i]); break;
-				case(1) : fprintf(pF,"%c",seqORFcompl[i]); break;
-			}
+				fprintf(pF,"%c",seqORF[i]);
 		}
 		else{ fprintf(pF,"\n"); };
+		//printf("indice : %d\n",i);
 		
 	}
 	fprintf(pF,"\n");
@@ -111,14 +108,26 @@ tyListeORFs* freeListeORFs(tyListeORFs *pL){
 
 tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer){
 	tyListeORFs *tmp;
+	tyListeORFs *prec;
 	
-	for (tmp = pL; tmp->pSuiv != NULL ; tmp=tmp->pSuiv){
-		if ( tmp->pSuiv == pOrfASupprimer->pSuiv ) {
-			free(tmp->pSuiv);
-		}
-
+	if (pL == NULL){
+		return pL;
+	}
+	prec = pL; // premier element
+	tmp = prec->pSuiv; // prec element precedent et tmp element suivant
+	
+	while (tmp != NULL){
+		if (tmp == pOrfASupprimer){
+			prec->pSuiv = tmp->pSuiv; //fusion n-1 et n+1 avant suppression de n
+			free (tmp);
+			return pL; // on peut retourner direct la liste quand on a supprime
+	}
+	/* iteration +1 chaine  */
+	prec = tmp; 
+	tmp = tmp->pSuiv;
 	}
 	return pL;
+
 }
 
 void ecrireListeORF(tyListeORFs *pL, FILE *pF){
@@ -126,12 +135,12 @@ void ecrireListeORF(tyListeORFs *pL, FILE *pF){
 	tyListeORFs *tmp;
 
 	
-	for (tmp = pL; tmp != NULL ; tmp=tmp->pSuiv){
-		
+	for (tmp = pL; tmp->pSuiv != NULL ; tmp=tmp->pSuiv){
 		
 		printORF(pF, tmp->pORF, 0);
-	
+
 	}
+	
 }
 
 
