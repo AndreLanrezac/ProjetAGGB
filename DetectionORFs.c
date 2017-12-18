@@ -3,7 +3,6 @@
 #include "DetectionORFs.h"
 
 
-
 tyListeORFs *findORF(tySeqADN *pS){
 	/* Creation de la liste a remplir -> allocation dynamique
 	 * parcours de la sequence dans les 3 phases
@@ -113,3 +112,30 @@ tyListeORFs *findORF(tySeqADN *pS){
 	
 }
 
+/*
+
+void TrouveLesPremiersStarts(tyListeORFs *lesORF){
+	
+	 Parcours des ORFS
+	 Parcours des seq
+	 Remplissage composante debut de tyORF
+
+	
+
+	tyListeORFs *ORF;
+	ORF = lesORFS->pSuiv
+	int i;
+	
+	while (ORF->pSuiv != NULL){
+		
+		for(i=0; i<ORF->lg-3; i+=3){
+			
+			
+			
+		}
+	}
+	
+	
+}
+
+*/

@@ -76,9 +76,27 @@ int main(int argc, char *argv[]){
     
     lesORFs=findORF(pS); // Recherche des ORFs et affectation dans listesORF
     
-    AfficheSeqBornes(pS->seq,5,17);
+    /* Affichage longueur lesOFRS : nbr d'ORF 
+    int i=0;
+    while (lesORFs->pSuiv != NULL){
+		i+=1;
+		printf("Debut : %d ; Fin : %d\n",lesORFs->pORF->debut, lesORFs->pORF->stop);
+		lesORFs = lesORFs->pSuiv;
+	}
+	printf("nombre : %d\n",i);
+	 ------------------------------------*/
+	
+    //AfficheSeqBornes(pS->seq,5,17);
     
-    ecrireListeORF(lesORFs, stdout); //Ecriture des ORFs dans la console
+    FILE *pF; // Fichier a remplir
+    pF = fopen("ORF.fasta","w"); // OUverture du fichier
+	if (pF == NULL){
+		exit(1);
+	}
+	
+    ecrireListeORF(lesORFs, stdout); //Ecriture des ORFs
+    fclose(pF);
+    
     /*
     printf("Les Complémentaires\n");
     pComp=complementaire(pS); // Seq compl de pS dans pComp

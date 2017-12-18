@@ -41,27 +41,24 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 	 */
 	//printf ("%s",pF);
 	
-	pF = fopen("ORF.fasta","a");
-
-	if (pF == NULL){
-		free(pF);
-		exit(1);
-	}
+	
 	/* écriture de la première ligne
 	 * on suppose que int complementaire = 0 si brin direct et 1 si indirect
 	 */
+	 
+	// printf("Debut : %d ; Stop : %d\n",pORF->debut, pORF->stop);
 	switch (compl_seq){
 		case(0) : fprintf(pF,"> %d-%d",pORF->debut,pORF->stop); break;	
 		case(1) : fprintf(pF,"> c%d-%d",pORF->debut,pORF->stop); break;
 	}
 
-	/* Ecriture de l'ORF, il faut que chaque ligne fasse 70 caractères max */
+	/* Ecriture de l'ORF, il faut que chaque ligne fasse 80 caractères max */
 	char *seqORF = pORF->pSeq->seq; // seq de l'ORF en brin direct
 	char *seqORFcompl = complementaire(pORF->pSeq)->seq; // seq de l'ORF en brin indirect
 	int debutORF = pORF->debut-1, finORF = pORF->stop-1;
 	int i;
 	for (i=debutORF; i<finORF; i++){
-		if ((i-debutORF)%70 != 0){
+		if ((i-debutORF)%80 != 0){
 			switch (compl_seq){
 				case(0) : fprintf(pF,"%c",seqORF[i]); break;
 				case(1) : fprintf(pF,"%c",seqORFcompl[i]); break;
@@ -71,7 +68,7 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 		
 	}
 	fprintf(pF,"\n");
-	fclose(pF);
+	
 }
 
 tyListeORFs* ajouterORF(tyListeORFs *pL, int iDebut, int stop, int start, tySeqADN *pS){
@@ -125,12 +122,11 @@ tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer){
 }
 
 void ecrireListeORF(tyListeORFs *pL, FILE *pF){
+	
 	tyListeORFs *tmp;
+
 	
-	pF = fopen("ORF.fasta","w");
-	fclose(pF);
-	
-	for (tmp = pL; tmp->pSuiv != NULL ; tmp=tmp->pSuiv){
+	for (tmp = pL; tmp != NULL ; tmp=tmp->pSuiv){
 		
 		
 		printORF(pF, tmp->pORF, 0);
