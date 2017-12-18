@@ -2,9 +2,8 @@
 #ifndef __MANIP_ORF__
 #define __MANIP_ORF__
 
-#include <stdlib.h>
-#include <stdio.h>
-#include "ManipSeqADN.h"
+#include "ManipSeqADN.h" 
+
 
 // Structure pour manipuler une ORF
 typedef struct {

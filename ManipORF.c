@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ManipORF.h"
-#include "ManipSeqADN.c"
 
 
 tyORF* newORF(){
@@ -40,7 +39,9 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 	 * 
 	 * On commence par ouvrir le fichier pF en mode écriture
 	 */
-	pF = fopen("ORF.fasta","w");
+	//printf ("%s",pF);
+	
+	pF = fopen("ORF.fasta","a");
 
 	if (pF == NULL){
 		free(pF);
@@ -69,6 +70,7 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 		else{ fprintf(pF,"\n"); };
 		
 	}
+	fprintf(pF,"\n");
 	fclose(pF);
 }
 
@@ -124,7 +126,12 @@ tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer){
 
 void ecrireListeORF(tyListeORFs *pL, FILE *pF){
 	tyListeORFs *tmp;
+	
+	pF = fopen("ORF.fasta","w");
+	fclose(pF);
+	
 	for (tmp = pL; tmp->pSuiv != NULL ; tmp=tmp->pSuiv){
+		
 		
 		printORF(pF, tmp->pORF, 0);
 	

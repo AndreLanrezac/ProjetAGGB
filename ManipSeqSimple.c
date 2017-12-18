@@ -1,14 +1,10 @@
-/*
- * ManipSeqSimple.c
- * 
- * 2017 André Lanrezac <andre@Andre-Lanrezac.local>
- */
-
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #include <math.h>
+#include "ManipSeqSimple.h"
+
 
 
 
@@ -24,6 +20,17 @@ void AfficheSeq(char seq[], int lg){
 
 }
 
+// Affiche la chaine de caractères seq de longueur lg
+void AfficheSeqBornes(char seq[], int debut, int fin){
+	int i;
+	for (i=debut; i<fin; i++)
+	{
+		printf("%c", seq[i]);
+		
+	}
+	printf("\n");
+
+}
 
 // Remplie la chaine de caractère seq de lg nucléotides tirés aléatoirement
 void InitSeqAlea(char seq[], int lg){

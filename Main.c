@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+#include <math.h>
 
-#include "DetectionORFs.h"
-#include "ManipSeqADN.h"
-#include "ManipSeqSimple.h"
-#include "ManipORF.h"
 #include "Main.h"
 #include "codons.h"
+#include "ManipSeqSimple.h"
+#include "ManipSeqADN.h"
+#include "ManipORF.h"
+#include "DetectionORFs.h"
+
+
 
 // gcc -Wall -o exe main.c DetectionORFs.c; ./exe test.fasta 
 // gcc -Wall -o exe main.c ManipSeqADN.c; ./exe test.fasta 
@@ -71,16 +75,19 @@ int main(int argc, char *argv[]){
  
     
     lesORFs=findORF(pS); // Recherche des ORFs et affectation dans listesORF
-    ecrireListeORF(lesORFs, stdout); //Ecriture des ORFs dans un fichier fasta
-
+    
+    AfficheSeqBornes(pS->seq,5,17);
+    
+    ecrireListeORF(lesORFs, stdout); //Ecriture des ORFs dans la console
+    /*
     printf("Les Complémentaires\n");
     pComp=complementaire(pS); // Seq compl de pS dans pComp
     lesORFsComp=findORF(pComp); // Recherche des ORFs et affectation dans lesORFsComp
-    ecrireListeORF(lesORFsComp, stdout); //Ecriture des ORFs dans un fichier fasta
-
-    lesORFsComp=freeListeORFs(lesORFsComp); 
+    ecrireListeORF(lesORFsComp, stdout); //Ecriture des ORFs dans la console
+    */
+    // lesORFsComp=freeListeORFs(lesORFsComp); 
     lesORFs=freeListeORFs(lesORFs);
-    pComp=freeSeqADN(pComp);
+    //pComp=freeSeqADN(pComp);
     pS=freeSeqADN(pS);
     
     

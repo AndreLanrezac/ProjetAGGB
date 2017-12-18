@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "DetectionORFs.h"
-#include "ManipORF.c"
+
 
 
 tyListeORFs *findORF(tySeqADN *pS){
@@ -87,19 +87,19 @@ tyListeORFs *findORF(tySeqADN *pS){
 			 stop1 != 0  &&\
 			 stop1-debut1>=3 ){
 			//printf("Phase 1 Debut : %d ;stop : %d\n", debut1, stop1);
-			pLORFs = ajouterORF(pLORFs, debut1, stop1, -1, pS);
+			pLORFs = ajouterORF(pLORFs, debut1, stop1+4, -1, pS);
 		}
 		if ( debut2 != 0 &&\
 			 stop2 != 0  &&\
 			 stop2-debut2>=3 ){
 			//printf("Phase 2 Debut : %d ;stop : %d\n", debut2, stop2);
-			pLORFs = ajouterORF(pLORFs, debut2, stop2, -1, pS);
+			pLORFs = ajouterORF(pLORFs, debut2, stop2+4, -1, pS);
 		}
 		if ( debut3 != 0 &&\
 			 stop3 != 0  &&\
 			 stop3-debut3>=3 ){
 			//printf("Phase 3 Debut : %d ;stop : %d\n", debut3, stop3);
-			pLORFs = ajouterORF(pLORFs, debut3, stop3, -1, pS);
+			pLORFs = ajouterORF(pLORFs, debut3, stop3+4, -1, pS);
 		}
 		
 	}

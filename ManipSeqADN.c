@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ManipSeqADN.h"
-#include "ManipSeqSimple.c"
 
 
 tySeqADN* newSeqADN(){
@@ -32,7 +32,6 @@ tySeqADN* freeSeqADN(tySeqADN *pS){
 	free(pS);
 	return pS;
 }
-
 
 char *strrev(char *str){
     char c, *front, *back;
