@@ -14,9 +14,9 @@ tyListeORFs *findORF(tySeqADN *pS){
 	
 	/* Creation struc tyListeORFs a remplir (1er element) */
 	tyListeORFs *pLORFs=NULL;
-	pLORFs = malloc(sizeof(tyListeORFs));
-	pLORFs->pORF = NULL;
-	pLORFs->pSuiv = NULL;
+	//pLORFs = malloc(sizeof(tyListeORFs));
+	//pLORFs->pORF = NULL;
+	//pLORFs->pSuiv = NULL;
 	
 	/* Creation des 3 listes d'indices des stop (3 phases) */
 	int nbrStop1=0, nbrStop2=0, nbrStop3=0;
@@ -106,12 +106,12 @@ tyListeORFs *findORF(tySeqADN *pS){
 	free(lStop1);
 	free(lStop2);
 	free(lStop3);
-
+	
+	
 	
 	return pLORFs;
 	
 }
-
 
 void TrouveLesPremiersStarts(tyListeORFs *lesORF){
 	
@@ -141,3 +141,4 @@ void TrouveLesPremiersStarts(tyListeORFs *lesORF){
 	
 	}
 }
+

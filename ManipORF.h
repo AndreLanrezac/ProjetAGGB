@@ -30,4 +30,6 @@ tyListeORFs* ajouterORF(tyListeORFs *pL, int iDebut, int stop, int start, tySeqA
 tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer);
 void ecrireListeORF(tyListeORFs *pL, FILE *pF);
 
+void FiltreORFsLg (tyListeORFs *pL, int lgMin);
+
 #endif

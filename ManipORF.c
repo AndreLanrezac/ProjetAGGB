@@ -46,10 +46,10 @@ void printORF(FILE *pF, tyORF *pORF, int compl_seq){
 	 * on suppose que int complementaire = 0 si brin direct et 1 si indirect
 	 */
 	 
-	// printf("Debut : %d ; Stop : %d\n",pORF->debut, pORF->stop);
+	
 	switch (compl_seq){
-		case(0) : fprintf(pF,"> %d-%d",pORF->debut,pORF->stop); break;	
-		case(1) : fprintf(pF,"> c%d-%d",pORF->debut,pORF->stop); break;
+		case(0) : fprintf(pF,"> %d-%d",pORF->debut,pORF->stop-1); break;	
+		case(1) : fprintf(pF,"> c%d-%d",pORF->debut,pORF->stop-1); break;
 	}
 
 	/* Ecriture de l'ORF, il faut que chaque ligne fasse 80 caractères max */
@@ -107,6 +107,9 @@ tyListeORFs* freeListeORFs(tyListeORFs *pL){
 }
 
 tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer){
+	
+	
+
 	tyListeORFs *tmp;
 	tyListeORFs *prec;
 	
@@ -119,9 +122,11 @@ tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer){
 	while (tmp != NULL){
 		if (tmp == pOrfASupprimer){
 			prec->pSuiv = tmp->pSuiv; //fusion n-1 et n+1 avant suppression de n
+			
 			free (tmp);
+			
 			return pL; // on peut retourner direct la liste quand on a supprime
-	}
+		}
 	/* iteration +1 chaine  */
 	prec = tmp; 
 	tmp = tmp->pSuiv;
@@ -132,15 +137,54 @@ tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer){
 
 void ecrireListeORF(tyListeORFs *pL, FILE *pF){
 	
-	tyListeORFs *tmp;
-
 	
-	for (tmp = pL; tmp->pSuiv != NULL ; tmp=tmp->pSuiv){
+	tyListeORFs *tmp;
+	tyListeORFs *prec;
+	if (pL == NULL){
+		printf("erreur liste\n");
+	}
+	
+	prec = pL;
+	tmp = prec->pSuiv;
+	
+	while (tmp != NULL){
 		
 		printORF(pF, tmp->pORF, 0);
 
+		
+	prec = tmp;
+	
+	tmp = tmp->pSuiv;
 	}
 	
 }
 
+void FiltreORFsLg (tyListeORFs *pL, int lgMin){
+	
+	/* Determiner quels sont les ORF de longuer < lgMin */
+	tyListeORFs *tmp;
+	tyListeORFs *prec;
+	int debut, stop;
+	if (pL == NULL){
+		printf("erreur liste\n");
+	}
+	
+	prec = pL;
+	tmp = prec->pSuiv;
 
+	while (tmp != NULL){
+		
+		debut = tmp->pORF->debut;
+		stop = tmp->pORF->stop;
+
+		if (stop-debut <= lgMin){
+			
+			pL = SupprimerORF(pL, tmp);
+		}
+	prec = tmp;
+	
+	tmp = tmp->pSuiv;
+	}
+	
+	
+}
