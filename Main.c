@@ -69,11 +69,12 @@ int main(int argc, char *argv[]){
 	
 	
 	
-	int lg = 30; // on pose longueur min ORF
+	int lg = 100; // on pose longueur min ORF
 	
 	
 	
 	FiltreORFsLg(lesORFs,lg);
+	FiltreORFsCompoGC(lesORFs);
 	
     ecrireListeORF(lesORFs, pF); //Ecriture des ORFs
     

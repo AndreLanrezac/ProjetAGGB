@@ -31,5 +31,6 @@ tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer);
 void ecrireListeORF(tyListeORFs *pL, FILE *pF);
 
 void FiltreORFsLg (tyListeORFs *pL, int lgMin);
+void FiltreORFsCompoGC (tyListeORFs *pL);
 
 #endif

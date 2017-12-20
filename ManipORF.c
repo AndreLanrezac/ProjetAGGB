@@ -90,6 +90,7 @@ tyListeORFs* ajouterORF(tyListeORFs *pL, int iDebut, int stop, int start, tySeqA
 	nouvORF->stop = stop;
 	nouvORF->start = start;
 	nouvORF->pSeq = pS;
+	nouvORF->GC = compteGC3en3(pS->seq, stop-iDebut);
 	
 	
 	pLnouv->pORF = nouvORF; // affectation composante pORF vers nouvORF
@@ -180,6 +181,44 @@ void FiltreORFsLg (tyListeORFs *pL, int lgMin){
 		if (stop-debut <= lgMin){
 			
 			pL = SupprimerORF(pL, tmp);
+		}
+	prec = tmp;
+	
+	tmp = tmp->pSuiv;
+	}
+	
+	
+}
+
+void FiltreORFsCompoGC (tyListeORFs *pL){
+	
+	tyListeORFs *tmp;
+	tyListeORFs *prec;
+	int debut, stop;
+	float propor_GC;
+	float Chi2;
+	if (pL == NULL){
+		printf("erreur liste\n");
+	}
+	
+	prec = pL;
+	tmp = prec->pSuiv;
+
+	while (tmp != NULL){
+		
+		debut = tmp->pORF->debut;
+		stop = tmp->pORF->stop;
+		
+		propor_GC = GC (tmp->pORF->pSeq->seq,stop-debut);
+		
+		Chi2 = calcChi2Conformite(tmp->pORF->pSeq->seq, stop-debut, propor_GC);
+		
+		//  alpha = 0.05 ddl = 1; chi2 = 3.84
+		
+		if(Chi2 > 3.84){
+			
+			pL = SupprimerORF(pL, tmp);
+			
 		}
 	prec = tmp;
 	
