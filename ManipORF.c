@@ -289,7 +289,7 @@ void printCDS(FILE *pF, tyORF *pORF, int compl_seq){
 	 */
 	int taille = pORF->pSeq->lg;
 	switch (compl_seq){
-	   case(0) : fprintf(pF,"> %d-%d",pORF->debut,pORF->stop-1); break;
+	   case(0) : fprintf(pF,"> %d-%d",pORF->start+1,pORF->stop-1); break;
 	   case(1) : fprintf(pF,"> c%d-%d",taille-(pORF->start+1),taille-(pORF->stop-1)); break;
 	}
 

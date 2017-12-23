@@ -47,32 +47,28 @@ int main(int argc, char *argv[]){
 
 
     /* Recherche des ORF ---------------------------------------------*/
-
+    printf("Recherche ORFs ----------\n");
     lesORFs=findORF(pS); // Recherche des ORFs et affectation dans listesORF
     lesORFsComp = findORF(pComp);
 
-/*
-    TrouveLesPremiersStarts(lesORFs); // Ajout composante start dans les ORFs
-	TrouveLesPremiersStarts(lesORFsComp);
+    printf("Application filtres ----------\n");
+    FiltreORFsCompoGC(lesORFs);
+    FiltreORFsCompoGC(lesORFsComp);
 
-    FiltreNoStart(lesORFs);
-    FiltreNoStart(lesORFsComp);
-
-	FiltreORFsLg(lesORFs,lgMinORF);
-	FiltreORFsLg(lesORFsComp,lgMinORF);
-
-	FiltreORFsCompoGC(lesORFs);
-	FiltreORFsCompoGC(lesORFsComp);
-*/
     FiltreORFsLg(lesORFs,lgMinORF);
     FiltreORFsLg(lesORFsComp,lgMinORF);
 
+
+    printf("Recherche des starts ----------\n");
     TrouveLesPremiersStarts(lesORFs); // Ajout composante start dans les ORFs
     TrouveLesPremiersStarts(lesORFsComp); // Ajout composante start dans les ORFs
 
 
+    printf("Suppression ORFs sans start ----------\n");
     lesORFs = FiltreNoStart(lesORFs); // Enlève les ORFs qui n'ont pas de Start
     lesORFsComp = FiltreNoStart(lesORFsComp); // Enlève les ORFs qui n'ont pas de Start
+
+
 
     /* Utiliser la fonction FiltreNoStart pour la fonction ecrireListeORF ! */
 
@@ -95,10 +91,13 @@ int main(int argc, char *argv[]){
 	if (pFcds == NULL){
 		exit(1);
 	}
+    printf("Ecriture dans fichier CDS.fasta ----------\n");
     ecrireListeORFtoCDS(lesORFs, pFcds,0); //Ecriture des ORFs
     ecrireListeORFtoCDS(lesORFsComp, pFcds,1);
-    fclose(pFcds);
 
+
+    fclose(pFcds);
+    printf ("Done \n");
     /*
     printf("Les Complémentaires\n");
     pComp=complementaire(pS); // Seq compl de pS dans pComp
