@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "DetectionORFs.h"
-
-
-
 
 tyListeORFs *findORF(tySeqADN *pS){
 
@@ -107,32 +101,63 @@ tyListeORFs *findORF(tySeqADN *pS){
 
 }
 
+tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer){
 
-void TrouveLesPremiersStarts(tyListeORFs *lesORF){
+	if (pL == NULL){
+		return pL;
+	}
 
-	tyListeORFs *ORF;
+	tyListeORFs *tmp=NULL;
+	tyListeORFs *prec=NULL;
 
-	ORF = lesORF;
-	int i,taille, debut, stop;
-	char *pCodon=NULL;
-	char *seq=NULL;
-	seq = ORF->pORF->pSeq->seq;
 
-	while (ORF->pSuiv != NULL){
-		debut = ORF->pORF->debut;
-		stop = ORF->pORF->stop;
-		taille = stop-debut;
+	prec = pL; // premier element
+	tmp = prec->pSuiv; // prec element precedent et tmp element suivant
 
-		for(i=debut; i< stop; i+=3){
-			pCodon = &seq[i];
-			if (estStart(pCodon) ==1){
-				ORF->pORF->start = i;
-				break;
-			}
+	while (tmp != NULL){
+		if (tmp == pOrfASupprimer){
+			prec->pSuiv = tmp->pSuiv; //fusion n-1 et n+1 avant suppression de n
+
+			free (tmp);
+			return pL; // on peut retourner direct la liste quand on a supprime
 		}
+	/* iteration +1 chaine  */
+	prec = tmp;
+	tmp = tmp->pSuiv;
+	}
 
 
-		ORF = ORF->pSuiv;
+	return pL;
+
+}
+
+tyListeORFs* FiltreNoStart (tyListeORFs *pL){
+
+	/* Determiner quels sont les ORF de longuer < lgMin */
+	tyListeORFs *tmp;
+	tyListeORFs *prec;
+	int start;
+	if (pL == NULL){
+		printf("erreur liste\n");
+	}
+
+	prec = pL;
+	tmp = prec->pSuiv;
+
+	while (tmp != NULL){
+
+		start = prec->pORF->start;
+
+		if (start == -1){
+
+			pL = SupprimerORF(pL, prec);
+			return pL;
+		}
+	prec = tmp;
+
+	tmp = tmp->pSuiv;
 
 	}
+	return pL;
+
 }

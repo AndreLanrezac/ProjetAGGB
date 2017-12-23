@@ -1,5 +1,5 @@
 
-# Makefile 
+# Makefile
 
 CC=gcc
 
@@ -22,7 +22,7 @@ all:  $(PROG)
 #Compilation des programmes
 Detect_ORF: $(HDR) $(OBJ)  main.o
 	$(CC) $(GCC_FLAGS) -o Detect_ORF $(OBJ)
-	
+
 
 clean	:
 	rm -f *.o $(PROG)

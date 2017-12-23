@@ -2,7 +2,7 @@
 #ifndef __MANIP_ORF__
 #define __MANIP_ORF__
 
-#include "ManipSeqADN.h" 
+#include "ManipSeqADN.h"
 
 
 // Structure pour manipuler une ORF
@@ -30,7 +30,11 @@ tyListeORFs* ajouterORF(tyListeORFs *pL, int iDebut, int stop, int start, tySeqA
 tyListeORFs* SupprimerORF(tyListeORFs *pL, tyListeORFs *pOrfASupprimer);
 void ecrireListeORF(tyListeORFs *pL, FILE *pF);
 
+tyListeORFs* FiltreNoStart (tyListeORFs *pL); // +
 void FiltreORFsLg (tyListeORFs *pL, int lgMin);
 void FiltreORFsCompoGC (tyListeORFs *pL);
+
+void ecrireListeORFtoCDS(tyListeORFs *pL, FILE *pF, int compl_seq);
+void printCDS(FILE *pF, tyORF *pORF, int compl_seq);
 
 #endif

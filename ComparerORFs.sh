@@ -8,7 +8,7 @@ fi
 
 fiORF=$1
 fiRef=$2
-
+echo $fiORF
 grep ">" ${fiORF}  |cut -f 2 -d " " > ${fiORF}_$$
 grep ">" ${fiRef} | cut -f 5 -d "|" | cut -f 1 -d " " |sed 's/://' > ${fiRef}_$$
 
