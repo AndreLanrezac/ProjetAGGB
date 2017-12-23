@@ -128,6 +128,7 @@ void TrouveLesPremiersStarts(tyListeORFs *lesORF){
 			if (estStart(pCodon) ==1){
 				ORF->pORF->start = i;
 				break;
+				
 			}
 		}
 

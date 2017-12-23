@@ -272,7 +272,6 @@ void ecrireListeORFtoCDS(tyListeORFs *pL, FILE *pF, int compl_seq){ // ajout arg
 
 	prec = pL;
 	tmp = prec->pSuiv;
-	//printf ("Debut : %d, Start : %d, Stop : %d\n",prec->pORF->debut,prec->pORF->start,prec->pORF->stop);
 	while (tmp != NULL){
 		printCDS(pF, tmp->pORF, compl_seq);
 
@@ -289,24 +288,21 @@ void printCDS(FILE *pF, tyORF *pORF, int compl_seq){
 	 * on suppose que int complementaire = 0 si brin direct et 1 si indirect
 	 */
 	int taille = pORF->pSeq->lg;
-
 	switch (compl_seq){
-		case(0) : fprintf(pF,"> %d-%d",pORF->start+1,pORF->stop-1); break;
-		case(1) : fprintf(pF,"> c%d-%d",taille-(pORF->start+1),taille-(pORF->stop-1)); break;
+	   case(0) : fprintf(pF,"> %d-%d",pORF->debut,pORF->stop-1); break;
+	   case(1) : fprintf(pF,"> c%d-%d",taille-(pORF->start+1),taille-(pORF->stop-1)); break;
 	}
 
 	/* Ecriture de l'ORF, il faut que chaque ligne fasse 80 caractères max */
 	char *seqORF = pORF->pSeq->seq; // seq de l'ORF en brin direct
-	int startORF = pORF->start, finORF = pORF->stop-1;
+	int debutORF = pORF->start, finORF = pORF->stop-1;
 	int i;
-	for (i=startORF; i<finORF; i++){
-
-		if ((i-startORF)%70==0){
-			fprintf(pF,"\n");
-		}
-		fprintf(pF,"%c",seqORF[i]);
+	for (i=debutORF; i<finORF; i++){
+	   if ((i-debutORF)%70==0){
+		   fprintf(pF,"\n");
+	   }
+	   fprintf(pF,"%c",seqORF[i]);
 
 	}
 	fprintf(pF,"\n");
-
 }

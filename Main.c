@@ -64,19 +64,19 @@ int main(int argc, char *argv[]){
 	FiltreORFsCompoGC(lesORFs);
 	FiltreORFsCompoGC(lesORFsComp);
 */
+    FiltreORFsLg(lesORFs,lgMinORF);
+    FiltreORFsLg(lesORFsComp,lgMinORF);
 
-TrouveLesPremiersStarts(lesORFs); // Ajout composante start dans les ORFs
-lesORFs = FiltreNoStart(lesORFs);
-
-//lesORFs = FiltreNoStart(lesORFs);
-//ecrireListeORF(lesORFs, pF); //Ecriture des ORFs
-
+    TrouveLesPremiersStarts(lesORFs); // Ajout composante start dans les ORFs
+    TrouveLesPremiersStarts(lesORFsComp); // Ajout composante start dans les ORFs
 
 
-//ecrireListeORF(lesORFs, stdout); //Ecriture des ORFs
-//ecrireListeORFtoCDS(lesORFs, stdout,0); //Ecriture des ORFs
+    lesORFs = FiltreNoStart(lesORFs); // Enlève les ORFs qui n'ont pas de Start
+    lesORFsComp = FiltreNoStart(lesORFsComp); // Enlève les ORFs qui n'ont pas de Start
 
-	/* Ouverture du fichier */
+    /* Utiliser la fonction FiltreNoStart pour la fonction ecrireListeORF ! */
+
+	/* ======Fichier ORF.fasta ==============*/
 	/*
     FILE *pF; // Fichier a remplir
     pF = fopen("ORF.fasta","w");
@@ -86,22 +86,19 @@ lesORFs = FiltreNoStart(lesORFs);
     ecrireListeORF(lesORFs, pF); //Ecriture des ORFs
 
     fclose(pF);
-    */
+    ====================================*/
 
-    /* Ouverture du fichier */
+    /* ========Fichier CDS.fasta ========= */
 
     FILE *pFcds=NULL; // Fichier a remplir
     pFcds = fopen("CDS.fasta","w");
 	if (pFcds == NULL){
 		exit(1);
 	}
-
-
     ecrireListeORFtoCDS(lesORFs, pFcds,0); //Ecriture des ORFs
-    //ecrireListeORFtoCDS(lesORFsComp, pFcds,1);
+    ecrireListeORFtoCDS(lesORFsComp, pFcds,1);
     fclose(pFcds);
 
-    //AfficheSeqBornes(pS->seq,780,986);
     /*
     printf("Les Complémentaires\n");
     pComp=complementaire(pS); // Seq compl de pS dans pComp
@@ -124,13 +121,14 @@ lesORFs = FiltreNoStart(lesORFs);
 
 /* Affichage longueur lesOFRS : nbr d'ORF
 
-    int i=0;
-    while (lesORFs->pSuiv != NULL){
-		i+=1;
-		printf("Debut : %d ; Fin : %d\n",lesORFs->pORF->debut, lesORFs->pORF->stop);
-		lesORFs = lesORFs->pSuiv;
-	}
-	printf("nombre : %d\n",i);
+int i=0;
+while (lesORFs->pSuiv != NULL){
+    i+=1;
+    printf("Debut : %d ;Start : %d;  Fin : %d\n",lesORFs->pORF->debut,lesORFs->pORF->start, lesORFs->pORF->stop);
+    lesORFs = lesORFs->pSuiv;
+}
+printf("nombre : %d\n",i);
+
 
 	* AfficheSeqBornes(pS->seq,5,17);
 	 ------------------------------------*/
